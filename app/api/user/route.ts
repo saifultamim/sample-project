@@ -12,15 +12,17 @@ export async function GET() {
 
     export async function POST() {
         try{
-      const createUser = await prisma.user.create({
-        data:{
-            username:'shaiful',
-            email:'saifultamim38@gmail.com',
-            password:'12345',
-            location:'kakrail,Dhaka'
-        }
-      })
-      console.log('create user ',createUser)
+    //   const createUser = await prisma.user.create({
+    //     data:{
+    //         username:'shaiful',
+    //         email:'saifultamim38@gmail.com',
+    //         password:'12345',
+    //         location:'kakrail,Dhaka'
+    //     }
+    //   })
+    //   console.log('create user ',createUser)a
+    
+    console.log('bakcedn ')
         }catch(error){
             return NextResponse.json({error})
         }

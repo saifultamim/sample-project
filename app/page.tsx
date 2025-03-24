@@ -1,42 +1,16 @@
-"use client";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import { generateStatic, getComments } from "@/utils/comments";
 
 export async function generateStaticParams() {
-  const posts = await fetch("https://jsonplaceholder.typicode.com/comments", {
-    cache: "force-cache",
-  }).then((res) => res.json());
-
-  return posts.map((params: any) => ({
-    id: String(params.id),
-  }));
+  await generateStatic();
 }
 
-export default function Home() {
-  const [comments, setComments] = useState([]);
-  useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        const response = await fetch(
-          "https://jsonplaceholder.typicode.com/comments",
-          {
-            cache: "force-cache",
-          }
-        );
-        const data = await response.json();
-        setComments(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+export default async function Home() {
+  const data = await getComments();
 
-    fetchComments();
-  }, []);
-  console.log("response data : ", comments);
   return (
     <div className="grid grid-cols-3 gap-4 w-11/12 mx-auto mt-3">
-      {comments?.map((params, idx) => (
-        <div className="border border-black">
+      {data?.map((params: any, idx: number) => (
+        <div className="border border-black" key={idx}>
           <p>{params.name}</p>
           <p>{params.email}</p>
           <p>{params.body}</p>
